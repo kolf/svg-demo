@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="http://cdn.bootcss.com/d3/3.5.17/d3.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background: #8ac832
+    }
+  </style>
+</head>
+
+<body>
+
+  <script>
+    var H = window.innerHeight,
+        W = window.innerWidth;
+
+        var svg = d3.select("body").append("svg")
+            .attr("width", W)
+            .attr("height", H);
+
+        //添加圆
+		svg.append("g").attr('transform', 'translate(0, 0)');
+		for (var i = 1; i < 8; i++) {
+			svg.select('g').append('circle')
+				.attr({
+					'r':function(){
+                        return 80+20*i*i
+                    },
+                    'cx':W/2,
+                    'cy':H/2,
+                    'stroke':function(){
+                        return 'rgba(255, 255, 0,'+(i*0.15)+')';
+                    },
+                    'fill':'transparent'
+				})
+		};
+
+        svg.select('g')
+    		.transition()
+    		.duration(1500)
+    	    .selectAll('circle')	//为所有选中的子元素设置过渡
+    		.delay(function (d, i) {	//设置延迟时间
+    			return i * 100;
+    		})
+            .attr({
+                'r':function(d, i){
+                    return 80+20*i*i
+                },
+                'stroke':function(d, i){
+                    return 'rgba(255, 255, 0,'+(i*0.15)+')';
+                }
+            })
+  </script>
+</body>
+
+</html>
